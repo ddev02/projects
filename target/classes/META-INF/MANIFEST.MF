@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: twitter
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Sonal
+Implementation-Vendor-Id: twitter
+Build-Jdk: 1.8.0_271
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/twitter
+Created-By: Maven Integration for Eclipse
+
