@@ -9,7 +9,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import com.twitter.user.User;
+import com.twitter.entity.user.User;
 import com.twitter.user.repository.UserRepository;
 
 @Component

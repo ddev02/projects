@@ -1,4 +1,4 @@
-package com.twitter.user;
+package com.twitter.entity.user;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.twitter.tweet.TweetMessage;
+import com.twitter.user.UserStatusDetail;
 
 @Entity
 @Table(name = "USER_INFO")

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.twitter.user.User;
+import com.twitter.entity.user.User;
 import com.twitter.user.repository.UserRepository;
 
 @SpringBootApplication

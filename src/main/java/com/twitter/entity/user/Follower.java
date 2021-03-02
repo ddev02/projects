@@ -1,4 +1,4 @@
-package com.twitter.user;
+package com.twitter.entity.user;
 
 import java.io.Serializable;
 

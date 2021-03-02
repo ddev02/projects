@@ -3,8 +3,8 @@ package com.twitter.cache;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.twitter.entity.user.User;
 import com.twitter.tweet.TweetMessage;
-import com.twitter.user.User;
 import com.twitter.user.repository.TweetMessageRepository;
 import com.twitter.user.repository.UserRepository;
 
