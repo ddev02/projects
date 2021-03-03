@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.twitter.user.UserStatus;
 
@@ -41,10 +41,11 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
 	private List<Follower> followers;
+	@Transient
 	@Enumerated(EnumType.ORDINAL)
 	private UserStatus userStatus;
 
-	@Basic
+	@Column(name = "user_status" , columnDefinition  = "varchar(1) default 'A' ")
 	private String userStatusValue;
 
 	@Column(name = "joining_Date", nullable = false)
