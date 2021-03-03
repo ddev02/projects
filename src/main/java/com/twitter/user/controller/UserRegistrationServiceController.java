@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.twitter.entity.user.User;
 import com.twitter.tweet.service.response.BaseResponse;
+import com.twitter.user.UserStatus;
 import com.twitter.user.service.FollowerResponse;
 import com.twitter.user.service.UserRegistrationResponse;
 import com.twitter.user.service.UserRegistrationServiceManager;
@@ -34,6 +35,7 @@ public class UserRegistrationServiceController {
 	public UserRegistrationResponse createUser(@RequestBody User user) {
 
 		user.setJoiningDate(LocalDateTime.now());
+		user.setUserStatus(UserStatus.ACTIVE);
 		return userRegistrationServiceManager.create(user);
 	}
 

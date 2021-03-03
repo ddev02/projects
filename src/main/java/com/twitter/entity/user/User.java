@@ -4,18 +4,21 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.twitter.tweet.TweetMessage;
-import com.twitter.user.UserStatusDetail;
+import com.twitter.user.UserStatus;
 
 @Entity
 @Table(name = "USER_INFO")
@@ -38,8 +41,11 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
 	private List<Follower> followers;
-	@Transient
-	private UserStatusDetail userStatusDetail;
+	@Enumerated(EnumType.ORDINAL)
+	private UserStatus userStatus;
+
+	@Basic
+	private String userStatusValue;
 
 	@Column(name = "joining_Date", nullable = false)
 	private LocalDateTime joiningDate;
@@ -58,14 +64,6 @@ public class User implements Serializable {
 		this.name = name;
 		this.email = email;
 		this.tweeterId = tweeterId;
-	}
-
-	public UserStatusDetail getUserStatusDetail() {
-		return userStatusDetail;
-	}
-
-	public void setUserStatusDetail(UserStatusDetail userStatusDetail) {
-		this.userStatusDetail = userStatusDetail;
 	}
 
 	public LocalDateTime getLastTweetDate() {
@@ -163,4 +161,27 @@ public class User implements Serializable {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", tweeterId=" + tweeterId + "]";
 	}
 
+	public UserStatus getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(UserStatus userStatus) {
+		this.userStatus = userStatus;
+	}
+
+	@PostLoad
+	void fillTransient() {
+
+		if (userStatusValue != null && userStatusValue.length() > 0) {
+
+			this.userStatus = UserStatus.decode(userStatusValue);
+		}
+	}
+
+	@PrePersist
+	void fillPersistent() {
+		if (userStatus != null) {
+			this.userStatusValue = userStatus.getCode();
+		}
+	}
 }
