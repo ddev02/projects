@@ -11,9 +11,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
 @Entity
 @Table(name = "Tweet")
-public class TweetMessage implements Serializable {
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
+public class TweetMessage implements Serializable, Comparable<String> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2396615146633958992L;
 
 	@Column(name = "message", nullable = false)
 	private String message;
@@ -28,8 +37,8 @@ public class TweetMessage implements Serializable {
 
 	@Column(name = "tweeter_id", length = 64, nullable = false)
 	private String tweeterId;
-	@Transient
-	private TweetValidator tweetValidator;
+//	@Transient
+//	private TweetValidator<String> tweetValidator = new TextMessageValidator();
 
 	public LocalDateTime getTweetTime() {
 		return tweetTime;
@@ -55,13 +64,13 @@ public class TweetMessage implements Serializable {
 		this.tweeterId = tweeterId;
 	}
 
-	public TweetValidator getTweetValidator() {
-		return tweetValidator;
-	}
-
-	public void setTweetValidator(TweetValidator tweetValidator) {
-		this.tweetValidator = tweetValidator;
-	}
+//	public TweetValidator<String> getTweetValidator() {
+//		return tweetValidator;
+//	}
+//
+//	public void setTweetValidator(TweetValidator<String> tweetValidator) {
+//		this.tweetValidator = tweetValidator;
+//	}
 
 	public String getMessage() {
 		return message;
@@ -71,9 +80,15 @@ public class TweetMessage implements Serializable {
 		this.message = message;
 	}
 
-	public boolean isValidTweet() {
+//	public boolean isValidTweet() {
+//
+//		return getTweetValidator().isValidTweet(this.message);
+//	}
 
-		return getTweetValidator().isValidTweet();
+	@Override
+	public int compareTo(String o) {
+
+		return this.message.compareTo(o);
 	}
 
 }

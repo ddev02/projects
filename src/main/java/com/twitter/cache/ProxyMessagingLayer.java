@@ -10,6 +10,11 @@ public class ProxyMessagingLayer extends Observable {
 
 	private Queue<TweetMessage> queue;
 
+	public ProxyMessagingLayer(Queue<TweetMessage> queue) {
+		super();
+		this.queue = queue;
+	}
+
 	public TweetResponse publish(TweetMessage tweet) {
 		queue.add(tweet);
 		setChanged();

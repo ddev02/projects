@@ -1,7 +1,7 @@
 package com.twitter.main;
 
-import java.time.LocalDateTime;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +16,9 @@ import com.twitter.user.repository.UserRepository;
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.twitter" })
 @EnableJpaRepositories(basePackages = { "com.twitter" })
-@EntityScan("com.twitter.*")  
+@EntityScan("com.twitter.*")
 public class TweeterMain {
+	private static final Logger log = LoggerFactory.getLogger(TweeterMain.class);
 
 	public static void main(String[] args) {
 
@@ -30,28 +31,10 @@ public class TweeterMain {
 
 		return (args) -> {
 
-			User user1 = new User("Deepak", "deepak@gmail.cp,", "Deepak");
-
-			user1.setJoiningDate(LocalDateTime.now());
-			
-			
-			User user11 = new User("Deepak", "deepak@gmail.cp,", "Deepak");
-
-			user11.setJoiningDate(LocalDateTime.now());
-			
-			User user111 = new User("Deepak", "deepak@gmail.cp,", "Deepak");
-
-			user111.setJoiningDate(LocalDateTime.now());
-			
-			User user1111 = new User("Deepak", "deepak@gmail.cp,", "Deepak");
-
-			user1111.setJoiningDate(LocalDateTime.now());
-			
-
-			repository.save(user1);
-			repository.save(user11);
-			repository.save(user111);
-			repository.save(user1111);
+			for (User user : repository.findAll()) {
+				log.info(user.toString());
+			}
+			log.info("");
 		};
 	}
 

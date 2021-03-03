@@ -30,14 +30,12 @@ public class User implements Serializable {
 	private long id;
 	@Column(name = "Full_Name", length = 64, nullable = false)
 	private String name;
-	@Column(name = "email", length = 30, nullable = false)
+	@Column(name = "email", length = 30, nullable = false, unique = true)
 	private String email;
-	@Column(name = "tweeter_id", length = 64, nullable = false)
+	@Column(name = "tweeter_id", length = 64, nullable = false, unique = true)
 	private String tweeterId;
-	@OneToMany(mappedBy = "tweeterId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// private List<Tweet<Object>> tweets;
-	private List<TweetMessage> tweets;
-	@OneToMany(mappedBy = "followerId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
 	private List<Follower> followers;
 	@Transient
@@ -48,6 +46,11 @@ public class User implements Serializable {
 
 	@Column(name = "last_Tweet_Date")
 	private LocalDateTime lastTweetDate;
+
+	public User() {
+		super();
+
+	}
 
 	public User(String name, String email, String tweeterId) {
 		super();
@@ -87,10 +90,6 @@ public class User implements Serializable {
 
 	public String getTweeterId() {
 		return tweeterId;
-	}
-
-	public List<TweetMessage> getTweets() {
-		return tweets;
 	}
 
 	public List<Follower> getFollowers() {
@@ -135,11 +134,6 @@ public class User implements Serializable {
 		return true;
 	}
 
-	public void addTweet(TweetMessage tweet) {
-
-		this.tweets.add(tweet);
-	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -156,16 +150,17 @@ public class User implements Serializable {
 		this.tweeterId = tweeterId;
 	}
 
-	public void setTweets(List<TweetMessage> tweets) {
-		this.tweets = tweets;
-	}
-
 	public void setFollowers(List<Follower> followers) {
 		this.followers = followers;
 	}
 
 	public void setJoiningDate(LocalDateTime joiningDate) {
 		this.joiningDate = joiningDate;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", tweeterId=" + tweeterId + "]";
 	}
 
 }

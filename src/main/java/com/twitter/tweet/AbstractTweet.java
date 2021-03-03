@@ -70,7 +70,7 @@ public abstract class AbstractTweet<T> implements Tweet<T> {
 
 	public boolean isValidTweet() {
 
-		return getTweetValidator().isValidTweet();
+		return getTweetValidator().isValidTweet(this.t);
 	}
 
 	public T getT() {

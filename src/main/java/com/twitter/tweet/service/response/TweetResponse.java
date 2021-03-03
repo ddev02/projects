@@ -1,7 +1,11 @@
 package com.twitter.tweet.service.response;
 
-public class TweetResponse {
+public class TweetResponse extends BaseResponse {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1675234227030301475L;
 	private long messageId;
 	private String responseCode;
 

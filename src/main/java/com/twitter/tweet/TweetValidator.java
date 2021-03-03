@@ -1,6 +1,6 @@
 package com.twitter.tweet;
 
-public interface TweetValidator {
+public interface TweetValidator<T> {
 
-	public boolean isValidTweet();
+	public boolean isValidTweet(T t);
 }

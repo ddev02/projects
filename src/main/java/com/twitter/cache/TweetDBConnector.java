@@ -1,9 +1,11 @@
 package com.twitter.cache;
 
+import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.twitter.entity.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.twitter.tweet.TweetMessage;
 import com.twitter.user.repository.TweetMessageRepository;
 import com.twitter.user.repository.UserRepository;
@@ -11,7 +13,10 @@ import com.twitter.user.repository.UserRepository;
 public class TweetDBConnector implements Observer {
 
 	private TweetMessage tweet;
+
+	@Autowired
 	private UserRepository userRepository;
+	@Autowired
 	private TweetMessageRepository tweeterRepository;
 
 	public UserRepository getUserRepository() {
@@ -40,11 +45,13 @@ public class TweetDBConnector implements Observer {
 		//
 		// user.addTweet(tweet);
 
-		User user = userRepository.findByTweeterId(tweet.getTweeterId());
-		TweetMessage message = new TweetMessage();
-		message.setMessage((String) tweet.getMessage());
-		message.setTweeterId(tweet.getTweeterId());
-		tweeterRepository.save(message);
+		// User user = userRepository.findByTweeterId(tweet.getTweeterId());
+		// TweetMessage message = new TweetMessage();
+		// message.setMessage((String) tweet.getMessage());
+		// message.setTweeterId(tweet.getTweeterId());
+		tweet.setTweetTime(LocalDateTime.now());
+		tweeterRepository.save(tweet);
+
 	}
 
 }

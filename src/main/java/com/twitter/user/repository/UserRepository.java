@@ -10,4 +10,6 @@ import com.twitter.entity.user.User;
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
 	public User findByTweeterId(String tweeterId);
+	public User findByTweeterIdIgnoreCase(String tweeterId);
+	
 }
